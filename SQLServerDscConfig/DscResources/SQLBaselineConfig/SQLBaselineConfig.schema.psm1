@@ -20,7 +20,7 @@ Configuration SQLBaselineConfig
         $MixedModeAuth = $false
     )
 
-    Import-DSCResource -ModuleName PSDesiredStateConfiguration, SQLServerDsc, SecurityPolicyDsc
+    Import-DSCResource -ModuleName xPSDesiredStateConfiguration, SQLServerDsc, SecurityPolicyDsc
 
     $ServerName = 'localhost'
 

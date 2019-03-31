@@ -8,7 +8,7 @@
         }
     }
 
-    PSDesiredStateConfiguration = 'latest'
-    SQLServerDsc                = 'latest'
-    SecurityPolicyDsc           = 'latest'  
+    xPSDesiredStateConfiguration = 'latest'
+    SQLServerDsc                 = 'latest'
+    SecurityPolicyDsc            = 'latest'  
 }
