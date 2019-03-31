@@ -8,7 +8,7 @@
           "type": "PowerShell",
           "request": "launch",
           "name": "Launch Build",
-          "script": "${workspaceRoot}/Build.ps1",
+          "script": "${workspaceRoot}/.build.ps1",
           "args": [],
           "cwd": "${workspaceRoot}"
       },
@@ -16,7 +16,7 @@
           "type": "PowerShell",
           "request": "launch",
           "name": "Launch Build -ResolveDependency",
-          "script": "${workspaceRoot}/Build.ps1",
+          "script": "${workspaceRoot}/.build.ps1",
           "args": ["-ResolveDependency"],
           "cwd": "${workspaceRoot}"
       },
