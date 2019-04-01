@@ -10,7 +10,7 @@ Configuration SQLInstallInstance
         $SQLVersion = '2016'
     )
 
-    Import-DSCResource -ModuleName xPSDesiredStateConfiguration, SQLServerDsc
+    Import-DSCResource -ModuleName PSDscResources, SQLServerDsc
 
     # pre-requisites
     # TODO - what if there is no internet to get .Net 3

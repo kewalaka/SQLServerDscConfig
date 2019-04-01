@@ -12,7 +12,7 @@ Configuration SQLDatabaseMail
         $SqlAdminCredential
     )
 
-    Import-DSCResource -ModuleName xPSDesiredStateConfiguration, SQLServerDsc, SecurityPolicyDsc
+    Import-DSCResource -ModuleName PSDscResources, SQLServerDsc, SecurityPolicyDsc
 
     $ServerName = 'localhost'
 
