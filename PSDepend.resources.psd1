@@ -8,7 +8,7 @@
         }
     }
 
-    PSDscResources            = 'latest'
-    SQLServerDsc              = 'latest'
-    SecurityPolicyDsc         = 'latest'  
+    PSDscResources            = '2.10.0.0'
+    SQLServerDsc              = '12.4.0.0'
+    SecurityPolicyDsc         = '2.8.0.0'  
 }

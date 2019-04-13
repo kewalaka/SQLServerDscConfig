@@ -12,10 +12,10 @@
 RootModule = 'SQLInstallInstance.schema.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.0.1'
+ModuleVersion = '0.0.1.0'
 
 # ID used to uniquely identify this module, generate new one via [GUID]::NewGuid()
-GUID = '46d29c0d-045b-4b4e-9274-5fb5c088c6ec'
+GUID = 'e4c33ae2-7545-458d-afdd-9e8bb5320795'
 
 # Author of this module
 Author = 'Stu (kewalaka@gmail.com)'
@@ -25,12 +25,6 @@ CompanyName = 'N/A'
 
 # Copyright statement for this module
 Copyright = '(c) 2019 Stu. All rights reserved.'
-
-# Modules that must be imported into the global environment prior to importing this module
-RequiredModules = @('PSDesiredStateConfiguration')
-
-# DSC resources to export from this module
-DscResourcesToExport = @('Shared1')
 
 }
 

@@ -21,4 +21,5 @@
     psdeploy = 'latest'
     DscBuildHelpers = 'latest'
     Datum = 'latest'
+    xPSDesiredStateConfiguration = 'latest'
 }

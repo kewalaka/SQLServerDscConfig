@@ -33,40 +33,54 @@ Process {
         return
     }
 
+    #cannot be a default parameter value due to https://github.com/PowerShell/PowerShell/issues/4688
+    if (-not $ProjectPath) {
+        $ProjectPath = $PSScriptRoot
+    }
+
     Get-ChildItem -Path "$PSScriptRoot/.build/" -Recurse -Include *.ps1 -Verbose |
         Foreach-Object {
             "Importing file $($_.BaseName)" | Write-Verbose
             . $_.FullName
         }
 
-    task . DscClean,LoadResource,LoadConfigurations
+    task . Init,
+    CleanBuildOutput,
+    SetPsModulePath,
+    Download_All_Dependencies
 
-    task DscClean {
-        if(![io.path]::IsPathRooted($BuildOutput)) {
-            $BuildOutput = Join-Path $PSScriptRoot $BuildOutput
-        }
-        Get-ChildItem -Path $BuildOutput -Recurse | Remove-Item -force -Recurse -Exclude README.md
-    }
+    task Download_All_Dependencies -if ($DownloadResourcesAndConfigurations -or $Tasks -contains 'Download_All_Dependencies') Download_DSC_Configurations, Download_DSC_Resources -Before SetPsModulePath
 
-    task Noop { }
-
-    task dsc {
-        . $PSScriptRoot\SharedDscConfig\examples\init.ps1
-    }
-
-    task LoadResource {
-        $PSDependResourceDefinition = '.\PSDepend.resources.psd1'
-        if(Test-Path $PSDependResourceDefinition) {
-            Invoke-PSDepend -Path $PSDependResourceDefinition -Confirm:$False
-        }
-    }
-
-    task LoadConfigurations {
-        $PSDependConfigurationDefinition = '.\PSDepend.configurations.psd1'
-        if(Test-Path $PSDependConfigurationDefinition) {
-            Invoke-PSDepend -Path $PSDependConfigurationDefinition -Confirm:$False
+    $configurationPath = Join-Path -Path $ProjectPath -ChildPath $ConfigurationsFolder
+    $resourcePath = Join-Path -Path $ProjectPath -ChildPath $ResourcesFolder
+    $configDataPath = Join-Path -Path $ProjectPath -ChildPath $ConfigDataFolder
+    $testsPath = Join-Path -Path $ProjectPath -ChildPath $TestFolder
+    
+    task Download_DSC_Resources {
+        $PSDependResourceDefinition = "$ProjectPath\PSDepend.DSC_Resources.psd1"
+        if (Test-Path $PSDependResourceDefinition) {
+            $psDependParams = @{
+                Path    = $PSDependResourceDefinition
+                Confirm = $false
+                Target  = $resourcePath
+            }
+            Invoke-PSDependInternal -PSDependParameters $psDependParams -Reporitory $GalleryRepository
         }
     }
+    
+    task Download_DSC_Configurations {
+        $PSDependConfigurationDefinition = "$ProjectPath\PSDepend.DSC_Configurations.psd1"
+        if (Test-Path $PSDependConfigurationDefinition) {
+            Write-Build Green 'Pull dependencies from PSDepend.DSC_Configurations.psd1'
+            $psDependParams = @{
+                Path    = $PSDependConfigurationDefinition
+                Confirm = $false
+                Target  = $configurationPath
+            }
+            Invoke-PSDependInternal -PSDependParameters $psDependParams -Reporitory $GalleryRepository
+        }
+    }
+    
 
 }
 

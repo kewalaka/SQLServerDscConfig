@@ -12,7 +12,7 @@
 RootModule = 'SQLDatabaseMail.schema.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.0.1'
+ModuleVersion = '0.0.1.0'
 
 # ID used to uniquely identify this module, generate new one via [GUID]::NewGuid()
 GUID = '68d340e0-3cb2-452e-aeb3-b1e95691a45b'
@@ -25,12 +25,6 @@ CompanyName = 'N/A'
 
 # Copyright statement for this module
 Copyright = '(c) 2019 Stu. All rights reserved.'
-
-# Modules that must be imported into the global environment prior to importing this module
-RequiredModules = @('PSDesiredStateConfiguration')
-
-# DSC resources to export from this module
-DscResourcesToExport = @('Shared1')
 
 }
 

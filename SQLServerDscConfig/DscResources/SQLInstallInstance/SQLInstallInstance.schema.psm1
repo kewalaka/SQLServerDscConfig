@@ -4,18 +4,19 @@ Configuration SQLInstallInstance
     param (
         [Parameter(Mandatory = $true)]
         [ValidateNotNullorEmpty()]
-        $SqlInstallParamaters,
+        $SqlInstallParameters,
 
-        [ValidateSetAttribute('2014', '2016', '2017', '2019')]
+        [ValidateSet('2014', '2016', '2017', '2019')]
         $SQLVersion = '2016'
     )
 
-    Import-DSCResource -ModuleName PSDscResources, SQLServerDsc
+    Import-DSCResource -ModuleName PSDscResources -ModuleVersion 2.10.0.0
+    Import-DSCResource -ModuleName SQLServerDsc -ModuleVersion 12.4.0.0
 
     # pre-requisites
     # TODO - what if there is no internet to get .Net 3
     # TODO - does not consider pre-staging files needed for R/Python 
-    if ($SQLVersion = '2014')
+    if ($SQLVersion -eq '2014')
     {
         Script enableDotNet
         {
@@ -41,14 +42,14 @@ Configuration SQLInstallInstance
     }
 
     # if an instance name has not been specified, create a default instance
-    if (-not $SqlInstallParamaters.ContainsKey('InstanceName'))
+    if (-not $SqlInstallParameters.Keys -contains 'InstanceName')
     {
-        $SqlInstallParamaters.InstanceName = 'MSSQLSERVER'
+        $SqlInstallParameters.InstanceName = 'MSSQLSERVER'
     }
-    $SqlInstallParamaters.DependsOn = '[WindowsFeature]NetFramework45'
+    $SqlInstallParameters.DependsOn = '[WindowsFeature]NetFramework45'
 
-    $executionName = $SqlInstallParamaters.InstanceName
-    (Get-DscSplattedResource -ResourceName SqlSetup -ExecutionName $executionName -Properties $SqlInstallParamaters -NoInvoke).Invoke($SqlInstallParamaters)
+    $executionName = $SqlInstallParameters.InstanceName
+    (Get-DscSplattedResource -ResourceName SqlSetup -ExecutionName $executionName -Properties $SqlInstallParameters -NoInvoke).Invoke($SqlInstallParameters)
 
     # TODO: service pack / CU (using chocolatey?)
 

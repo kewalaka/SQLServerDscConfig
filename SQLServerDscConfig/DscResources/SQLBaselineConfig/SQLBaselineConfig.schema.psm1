@@ -20,7 +20,9 @@ Configuration SQLBaselineConfig
         $MixedModeAuth = $false
     )
 
-    Import-DSCResource -ModuleName PSDscResources, SQLServerDsc, SecurityPolicyDsc
+    Import-DSCResource -ModuleName PSDscResources -ModuleVersion 2.10.0.0
+    Import-DSCResource -ModuleName SQLServerDsc -ModuleVersion 12.4.0.0
+    Import-DSCResource -ModuleName SecurityPolicyDsc -ModuleVersion 2.8.0.0
 
     $ServerName = 'localhost'
 

@@ -1,0 +1,21 @@
+Nodename: SimpleInstallTest
+
+Configurations:
+  - SQLInstallInstance
+
+SQLInstallInstance:
+  SqlInstallParameters:
+    - InstanceName: MSSQLServer
+      Features: SQLENGINE,REPLICATION,FULLTEXT
+      SQLCollation: SQL_Latin1_General_CP1_CI_AS
+      InstallSQLDataDir: C:\SQL\Data
+      SQLUserDBDir: C:\SQL\Data
+      SQLUserDBLogDir: C:\SQL\Logs
+      SQLTempDBDir: C:\SQL\TempDB
+      SQLTempDBLogDir: C:\SQL\TempDB
+      SQLBackupDir: 'C:\SQL\Backups'
+      SourcePath: C:\Install\SQL\ExtractedISO
+      UpdateEnabled: 'False'
+      #ForceReboot: '$false'
+      AgtSvcStartupType: Automatic
+

@@ -12,7 +12,7 @@
 RootModule = 'SQLBaselineConfig.schema.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.0.1'
+ModuleVersion = '0.0.1.0'
 
 # ID used to uniquely identify this module, generate new one via [GUID]::NewGuid()
 GUID = '420a6f71-bf5a-4628-a14e-ec2f13159e32'
@@ -25,12 +25,6 @@ CompanyName = 'N/A'
 
 # Copyright statement for this module
 Copyright = '(c) 2019 Stu. All rights reserved.'
-
-# Modules that must be imported into the global environment prior to importing this module
-RequiredModules = @('PSDesiredStateConfiguration')
-
-# DSC resources to export from this module
-DscResourcesToExport = @('Shared1')
 
 }
 

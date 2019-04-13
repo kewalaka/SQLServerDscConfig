@@ -1,0 +1,2 @@
+ResolutionPrecedence:
+  - 'TestConfigs\$($Node.Name)'
